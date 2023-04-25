@@ -1,0 +1,43 @@
+import 'package:flutter/material.dart';
+
+class Page2 extends StatelessWidget {
+  const Page2({super.key});
+  @override
+  Widget build(BuildContext context) {
+    // WillPopScope is a widget that it is helpful to avoid the coming back
+    // from a page using the back button
+    // if onWillPop returns false, you are handling it
+    return WillPopScope(
+      onWillPop: () async {
+        _popNavigationWithResult(context, 'from_back');
+        return false;
+      },
+      child: Scaffold(
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            _popNavigationWithResult(context, 'from_button');
+          },
+        ),
+        appBar: AppBar(
+            centerTitle: true,
+            leading: IconButton(
+                icon: const Icon(Icons.arrow_back),
+                onPressed: () {
+                  Navigator.pop(context, "from_back_arrow");
+                }),
+            title: const Text("Page 2")),
+        body: Container(
+          margin: const EdgeInsets.all(20.0),
+          child: const Center(
+            child: Text('Page 2',
+                style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold)),
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _popNavigationWithResult(BuildContext context, dynamic result) {
+    Navigator.pop(context, result);
+  }
+}
