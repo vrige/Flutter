@@ -1,0 +1,52 @@
+// ignore_for_file: prefer_const_constructors, use_build_context_synchronously, avoid_unnecessary_containers
+
+import 'package:flutter/material.dart';
+import 'page2.dart';
+
+class Page1 extends StatelessWidget {
+  const Page1({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          var navigationResult = await Navigator.push(
+              context, MaterialPageRoute(builder: (context) => const Page2()));
+
+          // actions in case of coming back from page 2 depending on the button/arrow used
+          if (navigationResult == 'from_back') {
+            showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                      title: const Text('Navigation from back button'),
+                    ));
+          } else if (navigationResult == 'from_button') {
+            showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                      title: const Text('Navigation from floating button'),
+                    ));
+          } else if (navigationResult == 'from_back_arrow') {
+            showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                      title: const Text('Navigation from back arrow'),
+                    ));
+          }
+        },
+      ),
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text('Page 1'),
+      ),
+      body: Container(
+        child: const Center(
+          child: Text(
+            'Page 1',
+            style: TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold),
+          ),
+        ),
+      ),
+    );
+  }
+}
